@@ -33,6 +33,7 @@ If necessary, install all required Python packages as listed in `requirements.tx
 ## Usage
 
 Make sure that all Python packages have been pre-installed as listed in `requirements.txt`.
+The input `.xyz` file must list all linker molecules at the beginning, before any other structural components.
 
 ### For SNU-70
 

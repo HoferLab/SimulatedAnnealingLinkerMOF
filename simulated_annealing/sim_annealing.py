@@ -8,15 +8,21 @@ from ase.filters import UnitCellFilter
 from ase.units import kB
 
 
-def pq_reader(filename: str) -> Atoms:
+def pq_reader(filename: str, nlinker: int, nlinker_atoms: int) -> Atoms:
     """
     Read a .xyz file in the PQ format and return an Atoms object.
 
     Args:
         filename (str): path to the .xyz file
+        nlinker (int): number of linkers
+        nlinker_atoms (int): number of atoms per linker
 
     Returns:
         Atoms: Atoms object
+
+    Raises:
+        ValueError: If total atoms is less than nlinker * nlinker_atoms
+        ValueError: If linkers don't have consistent element patterns
     """
 
     with open(filename, "r") as f:
@@ -38,6 +44,27 @@ def pq_reader(filename: str) -> Atoms:
     atoms = Atoms(element, positions=positions.reshape(natoms, 3))
     atoms.set_cell([a, b, c, alpha, beta, gamma])
     atoms.set_pbc([True, True, True])
+
+    if natoms < nlinker * nlinker_atoms:
+        raise ValueError(
+            f"Total atoms ({natoms}) is less than nlinker * nlinker_atoms "
+            f"({nlinker} * {nlinker_atoms} = {nlinker * nlinker_atoms})."
+        )
+
+    first_linker_pattern = element[:nlinker_atoms]
+
+    for i in range(1, nlinker):
+        linker_start = i * nlinker_atoms
+        linker_end = (i + 1) * nlinker_atoms
+        linker_pattern = element[linker_start:linker_end]
+
+        if linker_pattern != first_linker_pattern:
+            raise ValueError(
+                f"Linker {i} (atoms {linker_start}-{linker_end-1}) has element pattern "
+                f"'{linker_pattern}' which does not match the first linker pattern "
+                f"'{first_linker_pattern}'. All linkers must have the same element "
+                f"pattern and must be placed at the front of the xyz file."
+            )
 
     return atoms
 

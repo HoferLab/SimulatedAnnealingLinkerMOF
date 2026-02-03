@@ -35,7 +35,7 @@ def main():
 
     ################### Input ###################
 
-    system = pq_reader(name)
+    system = pq_reader(name, nlinker, nlinker_atoms)
 
     system.calc = calculator
 
