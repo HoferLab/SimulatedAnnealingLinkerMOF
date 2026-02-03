@@ -31,6 +31,7 @@ If necessary, install all required Python packages as listed in `requirements.tx
 - `mof5-oh.py`: Script for MOF-5-OH optimization.
 - `simulated_annealing/sim_annealing.py`: Main module of the simulated annealing routine.
 - `data/`: Contains the exemplary `.xyz` input files for SNU-70, UiO-66(Zr)-NH<sub>2</sub> and MOF-5-OH in the PQ format.
+- `analysis/`: Contains the results and plots of the associated publication.
 
 ## Usage
 
