@@ -150,10 +150,10 @@ def write_acceptance_ratio(
     ratio: float,
 ) -> None:
     """
-    Write the acceptance ratio to the output file.
+    Write the acceptance ratio to the log file.
 
     Args:
-        f (TextIO): Output file
+        f (TextIO): Log file
         energy (float): Energy of the system
         T (float): Temperature
         ratio (float): Acceptance ratio
@@ -195,8 +195,8 @@ def thermocycle(
         None
     """
 
-    # open output file
-    f = open("output.dat", "a")
+    # open log file
+    f = open("annealing.log", "a")
 
     f.write(f"Cycle #{cycle_number}\tEnergy\t\tTemperature\tAcceptance Ratio\n")
 
