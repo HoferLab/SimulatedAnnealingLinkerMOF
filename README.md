@@ -9,6 +9,7 @@ This repository provides a Monte Carlo (MC)-based simulated annealing tool, inte
 Exemplary MOFs included in this repository:
  - SNU-70
  - UiO-66(Zr)-NH<sub>2</sub>
+ - MOF-5-OH
 
 The simulated annealing code reads MOF structures from `.xyz` files in the [PQ](https://github.com/MolarVerse/PQ) format and uses MC-based simulated annealing to optimize the orientation of organic linkers within the MOF while applying a machine learning potential (MACE-MP-0a) for energy and force calculations in each step attempt. Multiple recurring MC cooling cycles are performed. The overall goal is to find low-energy configurations close to or at the global minimum of the considered MOF, in the context of orientational isomerism.
 
@@ -27,8 +28,9 @@ If necessary, install all required Python packages as listed in `requirements.tx
 
 - `snu70.py`: Script for SNU-70 optimization.
 - `uio66-nh2.py`: Script for UiO-66(Zr)-NH<sub>2</sub> optimization.
+- `mof5-oh.py`: Script for MOF-5-OH optimization.
 - `simulated_annealing/sim_annealing.py`: Main module of the simulated annealing routine.
-- `data/`: Contains the exemplary `.xyz` input files for SNU-70 and UiO-66(Zr)-NH<sub>2</sub> in the PQ format.
+- `data/`: Contains the exemplary `.xyz` input files for SNU-70, UiO-66(Zr)-NH<sub>2</sub> and MOF-5-OH in the PQ format.
 
 ## Usage
 
@@ -54,6 +56,16 @@ python uio66-nh2.py
 ```
 
 This uses the input file `data/amino-uio66.xyz`.
+
+### For MOF-5-OH
+
+To optimize the MOF-5-OH structure, run:
+
+```sh
+python mof5-oh.py
+```
+
+This uses the input file `data/mof5-oh.xyz`.
 
 ## Output Files
 
