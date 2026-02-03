@@ -58,7 +58,7 @@ This uses the input file `data/amino-uio66.xyz`.
 
 - `traj_annealing.traj`: Collection of accepted structures including, e.g., potential energy values.
 - `orientations.npy`: Array of linker orientations (2-bit binary representation for nodal and axial orientation, respectively).
-- `output.dat`: Output file of the optimization process.
+- `annealing.log`: Log file of the optimization process which lists the energies of all MC steps (successful & unsuccessful)
 - `final_structure.xyz`: Optimized structures after each performed MC cooling cycle.
 
 ## License
