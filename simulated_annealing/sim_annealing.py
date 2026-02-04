@@ -34,14 +34,14 @@ def pq_reader(filename: str, nlinker: int, nlinker_atoms: int) -> Atoms:
 
     positions = np.array([])
 
-    element = ""
+    elements = []
     for line in lines[2:]:
         split_line = line.split()
-        element += split_line[0]
+        elements.append(split_line[0])
         x, y, z = [float(i) for i in split_line[1:]]
         positions = np.append(positions, [x, y, z])
 
-    atoms = Atoms(element, positions=positions.reshape(natoms, 3))
+    atoms = Atoms(elements, positions=positions.reshape(natoms, 3))
     atoms.set_cell([a, b, c, alpha, beta, gamma])
     atoms.set_pbc([True, True, True])
 
@@ -51,18 +51,18 @@ def pq_reader(filename: str, nlinker: int, nlinker_atoms: int) -> Atoms:
             f"({nlinker} * {nlinker_atoms} = {nlinker * nlinker_atoms})."
         )
 
-    first_linker_pattern = element[:nlinker_atoms]
+    first_linker_pattern = elements[:nlinker_atoms]
 
     for i in range(1, nlinker):
         linker_start = i * nlinker_atoms
         linker_end = (i + 1) * nlinker_atoms
-        linker_pattern = element[linker_start:linker_end]
+        linker_pattern = elements[linker_start:linker_end]
 
         if linker_pattern != first_linker_pattern:
             raise ValueError(
-                f"Linker {i} (atoms {linker_start}-{linker_end-1}) has element pattern "
-                f"'{linker_pattern}' which does not match the first linker pattern "
-                f"'{first_linker_pattern}'. All linkers must have the same element "
+                f"Linker {i + 1} (atoms {linker_start}-{linker_end-1}) has element pattern\n\n"
+                f"{linker_pattern}\n\nwhich does not match the first linker pattern\n\n"
+                f"{first_linker_pattern}\n\nAll linkers must have the same element "
                 f"pattern and must be placed at the front of the xyz file."
             )
 
